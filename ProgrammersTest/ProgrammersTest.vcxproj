@@ -130,6 +130,8 @@
     <ClCompile Include="ProgrammersTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnglishWordChain.h" />
+    <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

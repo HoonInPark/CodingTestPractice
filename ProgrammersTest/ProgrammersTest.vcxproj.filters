@@ -23,5 +23,11 @@
     <ClInclude Include="PseudoCantorBitArray.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EnglishWordChain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimeNumGen.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

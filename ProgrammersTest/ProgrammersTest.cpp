@@ -2,8 +2,14 @@
 //
 
 #include <iostream>
-#include "PseudoCantorBitArray.h"
+
+//#include "PseudoCantorBitArray.h"
+//#include "EnglishWordChain.h"
+#include "PrimeNumGen.h"
 
 int main()
 {
+	vector<int> test = { 1,2,3,4 };
+
+	solution(test);
 }
