@@ -39,3 +39,7 @@
 
 # debug information files
 *.dwo
+
+# for visual studio
+*.sln
+.vs/
