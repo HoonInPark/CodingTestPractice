@@ -130,6 +130,7 @@
     <ClCompile Include="ProgrammersTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiskController.h" />
     <ClInclude Include="EnglishWordChain.h" />
     <ClInclude Include="FarthestNode.h" />
     <ClInclude Include="IsPrimeNum.h" />
