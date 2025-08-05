@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnglishWordChain.h" />
+    <ClInclude Include="FarthestNode.h" />
     <ClInclude Include="IsPrimeNum.h" />
     <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
