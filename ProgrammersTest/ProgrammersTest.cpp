@@ -11,4 +11,11 @@
 
 int main()
 {
+	vector<vector<int>> test;
+	test.push_back({ 0, 3 });
+	test.push_back({ 1, 9 });
+	test.push_back({ 3, 5 });
+	test.push_back({ 19, 2 });
+
+	int res = solution(test);
 }
