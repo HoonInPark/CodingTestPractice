@@ -7,15 +7,48 @@
 //#include "EnglishWordChain.h"
 //#include "PrimeNumGen.h"
 //#include "FarthestNode.h"
-#include "DiskController.h"
+//#include "DiskController.h"
+#include "ElectricalGridDivide.h"
 
 int main()
 {
-	vector<vector<int>> test;
-	test.push_back({ 0, 3 });
-	test.push_back({ 1, 9 });
-	test.push_back({ 3, 5 });
-	test.push_back({ 19, 2 });
+	vector<vector<int>> wires;
 
-	int res = solution(test);
+	wires.push_back({1, 3});
+	wires.push_back({2, 3});
+	wires.push_back({3, 4});
+	wires.push_back({4, 5});
+	wires.push_back({4, 6});
+	wires.push_back({4, 7});
+	wires.push_back({7, 8});
+	wires.push_back({7, 9});
+
+	for (int i = 0; i < 100; ++i)
+	{
+		solution1(9, wires);
+	}
+
+	for (int i = 0; i < 100; ++i)
+	{
+		solution2(9, wires);
+	}
+
+	return 0;
 }
+
+/*
+[1, 3]
+[2, 3]
+[3, 4]
+[4, 5]
+[4, 6]
+[4, 7]
+[7, 8]
+[7, 9]
+*/ 
+
+/*
+[1,2],
+[2,3],
+[3,4]
+*/
