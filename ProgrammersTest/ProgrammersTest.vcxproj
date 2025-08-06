@@ -134,6 +134,7 @@
     <ClInclude Include="ElectricalGridDivide.h" />
     <ClInclude Include="EnglishWordChain.h" />
     <ClInclude Include="FarthestNode.h" />
+    <ClInclude Include="HanoiTower.h" />
     <ClInclude Include="IsPrimeNum.h" />
     <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
