@@ -13,4 +13,5 @@
 
 int main()
 {
+	auto test = solution(2);
 }
