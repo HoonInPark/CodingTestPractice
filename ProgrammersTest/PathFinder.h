@@ -11,7 +11,14 @@ using namespace std;
 
 bool Comp(const vector<int>&, const vector<int>&);
 
-vector<vector<int>> solution(vector<vector<int>> nodeinfo) 
+struct Node
+{
+	int m_NodeNum;
+	Node* m_pChild_L;
+	Node* m_pChild_R;
+};
+
+vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 {
 	for (int i = 0; i < nodeinfo.size(); i++)
 		nodeinfo[i].push_back(i + 1); // nodeinfo[i][2]´Â ¿ø·¡ ÇØ´ç ³ëµåÀÇ ÀÎµ¦½º °ª. ÀçÇÒ´ç ÇÊ¿ä ¾øÁö·Õ ÄíÄí·ç»æ»Í
@@ -19,13 +26,33 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 	sort(nodeinfo.begin(), nodeinfo.end(), Comp);
 
 	int CurHeight = -1;
+	int CurIdx = 0;
 
-	for (int i = 0; i < nodeinfo.size(); i++)
+	vector<int> NodeBuf_Former, NodeBuf_Later;
+
+	while (CurIdx < nodeinfo.size())
 	{
-		if (CurHeight > nodeinfo[i][1])
+		NodeBuf_Former = NodeBuf_Later;
+		NodeBuf_Later.clear();
+
+		while(1)
+		{
+			NodeBuf_Later.push_back(CurIdx);
+
+			CurHeight = nodeinfo[CurIdx][1];
+			CurIdx++;
+
+			if (CurIdx >= nodeinfo.size() || CurHeight > nodeinfo[CurIdx][1])
+				break;
+		}
+
+		// do something
+		for (auto FormerX : NodeBuf_Former)
 		{
 
 		}
+
+		NodeBuf_Former.clear();
 	}
 
 	return nodeinfo;
