@@ -47,6 +47,7 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 		}
 
 		// do something
+
 		for (auto FormerX : NodeBuf_Former)
 		{
 
