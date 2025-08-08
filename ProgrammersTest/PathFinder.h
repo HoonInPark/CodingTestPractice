@@ -13,9 +13,13 @@ bool Comp(const vector<int>&, const vector<int>&);
 
 struct Node
 {
-	int m_NodeNum;
-	Node* m_pChild_L;
-	Node* m_pChild_R;
+	Node(int _InNodeNum)
+		: m_NodeNum(_InNodeNum)
+	{}
+
+	int m_NodeNum = -1;
+	Node* m_pChild_L = nullptr;
+	Node* m_pChild_R = nullptr;
 };
 
 vector<vector<int>> solution(vector<vector<int>> nodeinfo)
@@ -23,37 +27,42 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 	for (int i = 0; i < nodeinfo.size(); i++)
 		nodeinfo[i].push_back(i + 1); // nodeinfo[i][2]는 원래 해당 노드의 인덱스 값. 재할당 필요 없지롱 쿠쿠루삥뽕
 
+	// 이렇게 하면 맨 위에 있는 노드 순으로, 왼쪽에 있는 노드 순으로 정렬된다. 
 	sort(nodeinfo.begin(), nodeinfo.end(), Comp);
+	const auto& NodeInfos = nodeinfo;
 
+	// 앞에서부터 하나씩 꺼내면서 좌표평면을 분할하는 수직선을 만든다고 생각하자. 
+	// 위에 있는 노드를 기준으로 그은 수직선은 서브트리 모두에게 영향을 미친다.
 	int CurHeight = -1;
 	int CurIdx = 0;
 
-	vector<int> NodeBuf_Former, NodeBuf_Later;
+	vector<Node*> Nodes; // 인덱스는 NodeInfos와 동일하게 대응됨.
+	for (int j = 0; j < NodeInfos.size(); j++)
+		Nodes.push_back(new Node(NodeInfos[j][2])); // 원래 노드의 번호 기록하기
 
-	while (CurIdx < nodeinfo.size())
+	vector<int> NodeIdxBuf;
+
+	while (CurIdx < NodeInfos.size())
 	{
-		NodeBuf_Former = NodeBuf_Later;
-		NodeBuf_Later.clear();
+		NodeIdxBuf.clear();
 
-		while(1)
+		do
 		{
-			NodeBuf_Later.push_back(CurIdx);
+			NodeIdxBuf.push_back(CurIdx);
 
-			CurHeight = nodeinfo[CurIdx][1];
+			CurHeight = NodeInfos[CurIdx][1];
 			CurIdx++;
 
-			if (CurIdx >= nodeinfo.size() || CurHeight > nodeinfo[CurIdx][1])
-				break;
-		}
+		} while (CurIdx < NodeInfos.size() && CurHeight <= NodeInfos[CurIdx][1]);
 
 		// do something
-
-		for (auto FormerX : NodeBuf_Former)
+		for (int k = 0; k < NodeIdxBuf.size(); k++)
 		{
-
+			for (int l = 0; l < NodeIdxBuf[0]; l++)
+			{
+				NodeInfos[l][0];
+			}
 		}
-
-		NodeBuf_Former.clear();
 	}
 
 	return nodeinfo;
