@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
@@ -24,6 +25,11 @@ struct Node
 
 vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 {
+	unordered_map<int, Node*> NodeMap;
+
+	nodeinfo.push_back({ -1, 10001 });
+	nodeinfo.push_back({ 10001, 10002 });
+
 	for (int i = 0; i < nodeinfo.size(); i++)
 		nodeinfo[i].push_back(i + 1); // nodeinfo[i][2]는 원래 해당 노드의 인덱스 값. 재할당 필요 없지롱 쿠쿠루삥뽕
 
@@ -34,13 +40,10 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 	// 앞에서부터 하나씩 꺼내면서 좌표평면을 분할하는 수직선을 만든다고 생각하자. 
 	// 위에 있는 노드를 기준으로 그은 수직선은 서브트리 모두에게 영향을 미친다.
 	int CurHeight = -1;
-	int CurIdx = 0;
+	int CurIdx = 3;
 
-	vector<Node*> Nodes; // 인덱스는 NodeInfos와 동일하게 대응됨.
-	for (int j = 0; j < NodeInfos.size(); j++)
-		Nodes.push_back(new Node(NodeInfos[j][2])); // 원래 노드의 번호 기록하기
-
-	vector<int> NodeIdxBuf;
+	vector<int> NodeIdxBuf; // 이거 원래 인덱스 아니고 정렬된 기준이니 주의 요망.
+	NodeMap.insert(make_pair(2, new Node(NodeInfos[2][2]))); // 루트.
 
 	while (CurIdx < NodeInfos.size())
 	{
@@ -55,12 +58,15 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 
 		} while (CurIdx < NodeInfos.size() && CurHeight <= NodeInfos[CurIdx][1]);
 
-		// do something
+		// 자기 보다 상위에 있는 노드들 중 자신으로부터 양 옆에 있는 가장 가까운 노드를 기준으로 수직선을 긋고 
+		// 그 두 노드 중 층이 낮은 녀석에게 연결하면 됨.
+		// 위의 do while로 얻어낸 배열은 부모 노드에 연결되지 않은 (이제 다음 for문에서 연결해야 하는) 배열임.
 		for (int k = 0; k < NodeIdxBuf.size(); k++)
 		{
-			for (int l = 0; l < NodeIdxBuf[0]; l++)
+			const int& NodeIdxInThisDepth = NodeIdxBuf[k];
+			for (int l = 0; l < NodeIdxInThisDepth; l++)
 			{
-				NodeInfos[l][0];
+				//if (NodeInfos[NodeIdxInThisDepth][0] < )
 			}
 		}
 	}
