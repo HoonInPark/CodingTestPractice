@@ -11,14 +11,18 @@
 
 using namespace std;
 
+struct Node;
+
 bool CmpOfVec(const vector<int>&, const vector<int>&);
+
+void Preorder(vector<int>&, Node*);
+void Postorder(vector<int>&, Node*);
 
 struct Node
 {
 	Node(int _InNodeNum)
 		: m_NodeNum(_InNodeNum)
-	{
-	}
+	{}
 
 	int m_NodeNum = -1;
 	Node* m_pChild_L = nullptr;
@@ -85,13 +89,9 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 					auto pNode = new Node(NodeInfos[NodeIdx][2]);
 
 					if (NodeInfos[*iter][1] < NodeInfos[*next(iter)][1])
-					{
 						NodeMap[*iter]->m_pChild_R = pNode;
-					}
 					else
-					{
 						NodeMap[*next(iter)]->m_pChild_L = pNode;
-					}
 
 					NodeMap.insert(make_pair(NodeIdx, pNode));
 
@@ -101,7 +101,18 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 		}
 	}
 
-	return nodeinfo;
+	vector<vector<int>> RetVec(2);
+	Node* pCurNode = NodeMap[2];
+
+	// 전위
+	Preorder(RetVec[0], pCurNode);
+
+	pCurNode = NodeMap[2];
+
+	// 후위
+	Postorder(RetVec[1], pCurNode);
+
+	return RetVec;
 }
 
 bool CmpOfVec(const vector<int>& _InFormer, const vector<int>& _InLater)
@@ -110,6 +121,26 @@ bool CmpOfVec(const vector<int>& _InFormer, const vector<int>& _InLater)
 		return _InFormer[0] < _InLater[0];
 	else
 		return _InFormer[1] > _InLater[1];
+}
+
+void Preorder(vector<int>& _InRecord, Node* _pInNode)
+{
+	if (!_pInNode) return;
+
+	_InRecord.push_back(_pInNode->m_NodeNum);
+
+	Preorder(_InRecord, _pInNode->m_pChild_L);
+	Preorder(_InRecord, _pInNode->m_pChild_R);
+}
+
+void Postorder(vector<int>& _InRecord, Node* _pInNode)
+{
+	if (!_pInNode) return;
+
+	Postorder(_InRecord, _pInNode->m_pChild_L);
+	Postorder(_InRecord, _pInNode->m_pChild_R);
+
+	_InRecord.push_back(_pInNode->m_NodeNum);
 }
 
 /*
