@@ -50,7 +50,7 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 		{
 			return NodeInfos[_InFormer][0] < NodeInfos[_InLater][0];
 		};
-	set<int, decltype(CmpOfSet)> NodeIdxRounded(CmpOfSet);
+	set<int, decltype(CmpOfSet)> NodeIdxRounded(CmpOfSet); // 정렬된 기준 인덱스를 내가 원하는 순서로 담은 set
 	NodeIdxRounded.insert(0);
 	NodeIdxRounded.insert(1);
 	NodeIdxRounded.insert(2);
@@ -73,9 +73,9 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 
 		} while (CurIdx < NodeInfos.size() && CurHeight <= NodeInfos[CurIdx][1]);
 
-		for (int i = 0; i < NodeIdxBuf.size(); ++i)
+		for (const auto NodeIdx : NodeIdxBuf)
 		{
-			const int X = NodeInfos[NodeIdxBuf[i]][0];
+			const int X = NodeInfos[NodeIdx][0];
 			for (auto iter = NodeIdxRounded.begin(); iter != prev(NodeIdxRounded.end()); iter++)
 			{
 				int FormerX = NodeInfos[*iter][0];
