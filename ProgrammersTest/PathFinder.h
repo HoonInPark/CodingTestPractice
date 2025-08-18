@@ -82,6 +82,19 @@ vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 				int LaterX = NodeInfos[*next(iter)][0];
 				if (FormerX < X && X < LaterX)
 				{
+					auto pNode = new Node(NodeInfos[NodeIdx][2]);
+
+					if (NodeInfos[*iter][1] < NodeInfos[*next(iter)][1])
+					{
+						NodeMap[*iter]->m_pChild_R = pNode;
+					}
+					else
+					{
+						NodeMap[*next(iter)]->m_pChild_L = pNode;
+					}
+
+					NodeMap.insert(make_pair(NodeIdx, pNode));
+
 					break;
 				}
 			}
