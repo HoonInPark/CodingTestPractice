@@ -10,32 +10,37 @@
 //#include "DiskController.h"
 //#include "ElectricalGridDivide.h"
 //#include "HanoiTower.h"
-#include "PathFinder.h"
+//#include "PathFinder.h"
+#include "HyundaiMobisSim.h"
 
 int main()
 {
 	vector<vector<int>> test;
-	test.push_back({ 5,3 });
-	test.push_back({ 11,5 });
-	test.push_back({ 13,3 });
-	test.push_back({ 3,5 });
-	test.push_back({ 6,1 });
-	test.push_back({ 1,3 });
-	test.push_back({ 8,6 });
-	test.push_back({ 7,2 });
-	test.push_back({ 2,2 });
+	test.push_back({1, 2});
+	test.push_back({1, 3});
+	test.push_back({1, 4});
+	test.push_back({2, 5});
+	test.push_back({4, 5});
+	test.push_back({5, 6});
+	test.push_back({5, 7});
+	test.push_back({6, 9});
+	test.push_back({7, 9});
+	test.push_back({5, 8});
 
-	solution(test);
+	solution(9, test); // 정답은 3
 }
 
 /*
-[5,3],
-[11,5],
-[13,3],
-[3,5],
-[6,1],
-[1,3],
-[8,6],
-[7,2],
-[2,2]
+[
+[1, 2], 
+[1, 3], 
+[1, 4], 
+[2, 5], 
+[4, 5], 
+[5, 6], 
+[5, 7], 
+[6, 9], 
+[7, 9], 
+[5, 8]
+]
 */

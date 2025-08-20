@@ -11,23 +11,22 @@
 
 using namespace std;
 
-struct Node;
-
-bool CmpOfVec(const vector<int>&, const vector<int>&);
-
-void Preorder(vector<int>&, Node*);
-void Postorder(vector<int>&, Node*);
-
 struct Node
 {
 	Node(int _InNodeNum)
 		: m_NodeNum(_InNodeNum)
-	{}
+	{
+	}
 
 	int m_NodeNum = -1;
 	Node* m_pChild_L = nullptr;
 	Node* m_pChild_R = nullptr;
 };
+
+bool CmpOfVec(const vector<int>&, const vector<int>&);
+
+void Preorder(vector<int>&, Node*);
+void Postorder(vector<int>&, Node*);
 
 vector<vector<int>> solution(vector<vector<int>> nodeinfo)
 {
@@ -141,6 +140,7 @@ void Postorder(vector<int>& _InRecord, Node* _pInNode)
 	Postorder(_InRecord, _pInNode->m_pChild_R);
 
 	_InRecord.push_back(_pInNode->m_NodeNum);
+	delete _pInNode;
 }
 
 /*
