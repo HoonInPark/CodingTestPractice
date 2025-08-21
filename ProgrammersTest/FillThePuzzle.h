@@ -2,14 +2,57 @@
 
 #include <vector>
 #include <queue>
+#include <unordered_set>
 
 using namespace std;
+
+struct VectorHash // functor, 함수 객체
+{
+	size_t operator()(const vector<int>& v) const noexcept 
+	{
+		hash<int> hasher;
+		size_t seed = 0;
+		for (int x : v)
+		{
+			// boost::hash_combine 스타일로 해시 합성
+			seed ^= hasher(x) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		}
+
+		return seed;
+	}
+};
+
+struct SetHash 
+{
+	size_t operator()(const unordered_set<vector<int>, VectorHash>& s) const noexcept 
+	{
+		size_t seed = 0;
+		VectorHash vhash;
+
+		for (const auto& vec : s) 
+		{
+			size_t h = vhash(vec);
+			seed ^= h + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		}
+		return seed;
+	}
+};
+
+struct SetEqual 
+{
+	bool operator()(const unordered_set<vector<int>, VectorHash>& a,
+		const unordered_set<vector<int>, VectorHash>& b) const noexcept 
+	{
+		return a == b; // unordered_set은 == 연산자가 정의되어 있음
+	}
+};
+
 
 int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 {
 	int answer = -1;
 
-	vector<vector<vector<int>>> Puzzles; // 회전한 퍼즐까지 전부 담는 곳. 시작지점으로부터의 상대위치를 담는다.
+	vector<unordered_set<vector<int>, VectorHash>> Puzzles; // 회전한 퍼즐까지 전부 담는 곳. 시작지점으로부터의 상대위치를 담는다.
 	queue<vector<int>> YX;
 
 	// 일단 퍼즐 조각이 맞아 들어가는지부터 확인.
@@ -21,7 +64,7 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 
 			YX.push({ i, j });
 
-			vector<vector<int>> Puzzle;
+			unordered_set<vector<int>, VectorHash> Puzzle;
 
 			// 여기서 너비 우선 탐색.
 			// 이 while문이 끝나면 하나의 퍼즐 조각을 모두 순회함.
@@ -30,7 +73,7 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 				vector<int> FrontPt = YX.front();
 				YX.pop();
 
-				Puzzle.push_back({ FrontPt[0] - i, FrontPt[1] - j }); // 퍼즐 내 한 칸을 배열에 넣는다.
+				Puzzle.insert({ FrontPt[0] - i, FrontPt[1] - j }); // 퍼즐 내 한 칸을 배열에 넣는다.
 
 				table[FrontPt[0]][FrontPt[1]] = 0; // 순회했으니 0으로 표기.
 
@@ -46,38 +89,34 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 				if (FrontPt[1] + 1 < table.size() && table[FrontPt[0]][FrontPt[1] + 1])
 					YX.push({ FrontPt[0], FrontPt[1] + 1 });
 			}
+			
+			for (const auto& Piece : Puzzle)
+				table[Piece[0] + i][Piece[1] + j] = 1;
+
+			unordered_set<vector<int>, VectorHash> PuzzleRearanged;
 
 			// 회전해가며 네개의 퍼즐을 푸시 백.
 			Puzzles.push_back(Puzzle);
 
 			for (auto& Piece : Puzzle)
-			{
-				int SwapBuf = Piece[0];
-				Piece[0] = Piece[1];
-				Piece[1] = SwapBuf;
+				PuzzleRearanged.insert({ -Piece[1], Piece[0] });
+			Puzzles.push_back(PuzzleRearanged);
 
-				Piece[1] *= -1;
-			}
-			Puzzles.push_back(Puzzle);
-
+			PuzzleRearanged.clear();
 			for (auto& Piece : Puzzle)
-			{
-				int SwapBuf = Piece[0];
-				Piece[0] = Piece[1];
-				Piece[1] = SwapBuf;
+				PuzzleRearanged.insert({ Piece[1], -Piece[0] });
+			Puzzles.push_back(PuzzleRearanged);
 
-				Piece[0] *= -1;
-			}
-			Puzzles.push_back(Puzzle);
-
+			PuzzleRearanged.clear();
 			for (auto& Piece : Puzzle)
-			{
-				Piece[0] *= -1;
-				Piece[1] *= -1;
-			}
-			Puzzles.push_back(Puzzle);
+				PuzzleRearanged.insert({ -Piece[0], -Piece[1] });
+			Puzzles.push_back(PuzzleRearanged);
 		}
 	}
+
+	using InnerSet = unordered_set<vector<int>, VectorHash>;
+	unordered_set<InnerSet, SetHash, SetEqual> ResVec;
+
 
 	for (int i = 0; i < game_board.size(); ++i) // i는 y좌표
 	{
@@ -87,7 +126,7 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 
 			YX.push({ i, j });
 
-			vector<vector<int>> Void;
+			unordered_set<vector<int>, VectorHash> Void;
 
 			// 여기서 너비 우선 탐색.
 			// 이 while문이 끝나면 하나의 퍼즐 조각을 모두 순회함.
@@ -96,7 +135,7 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 				vector<int> FrontPt = YX.front();
 				YX.pop();
 
-				Void.push_back({ FrontPt[0] - i, FrontPt[1] - j }); // 퍼즐 내 한 칸을 배열에 넣는다.
+				Void.insert({ FrontPt[0] - i, FrontPt[1] - j }); // 퍼즐 내 한 칸을 배열에 넣는다.
 
 				game_board[FrontPt[0]][FrontPt[1]] = 1; // 순회했으니 1로 표기.
 
@@ -112,14 +151,14 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 				if (FrontPt[1] + 1 < game_board.size() && !game_board[FrontPt[0]][FrontPt[1] + 1])
 					YX.push({ FrontPt[0], FrontPt[1] + 1 });
 			}
-			/**/
+
 			for (const auto& Puzzle : Puzzles)
 			{
-				if (Puzzle == Void)
-				{
-					cout << "good" << endl;
-				}
+				if (Puzzle == Void /*&& ResVec.end() == ResVec.find(Puzzle)*/)
+					ResVec.insert(Puzzle);
 			}
+
+
 		}
 	}
 
