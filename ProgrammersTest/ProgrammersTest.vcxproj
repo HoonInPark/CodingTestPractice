@@ -134,12 +134,14 @@
     <ClInclude Include="ElectricalGridDivide.h" />
     <ClInclude Include="EnglishWordChain.h" />
     <ClInclude Include="FarthestNode.h" />
+    <ClInclude Include="FillThePuzzle.h" />
     <ClInclude Include="HanoiTower.h" />
     <ClInclude Include="HyundaiMobisSim.h" />
     <ClInclude Include="IsPrimeNum.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
+    <ClInclude Include="SooPoja.h" />
     <ClInclude Include="SumOpt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
