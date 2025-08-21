@@ -9,7 +9,9 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 {
 	int answer = -1;
 
-	// 일단 퍼즐 조각이 맞아 들어가는지부터 확인. 그게 최적의 경우인지는 다음으로 생각합시다.
+	vector<vector<vector<int>>> Puzzles; // 회전한 퍼즐까지 전부 담는 곳. 시작지점으로부터의 상대위치를 담는다.
+
+	// 일단 퍼즐 조각이 맞아 들어가는지부터 확인.
 	for (int i = 0; i < table.size(); ++i) // i는 y좌표
 	{
 		for (int j = 0; j < table[i].size(); ++j) // j는 x좌표
@@ -19,12 +21,16 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 			queue<vector<int>> YX;
 			YX.push({ i, j });
 
+			vector<vector<int>> Puzzle;
+
 			// 여기서 너비 우선 탐색.
 			// 이 while문이 끝나면 하나의 퍼즐 조각을 모두 순회함.
 			while (!YX.empty())
 			{
 				vector<int> FrontPt = YX.front();
 				YX.pop();
+
+				Puzzle.push_back({ FrontPt[0] - i, FrontPt[1] - j }); // 퍼즐 내 한 칸을 배열에 넣는다.
 
 				table[FrontPt[0]][FrontPt[1]] = 0; // 순회했으니 0으로 표기.
 
@@ -40,6 +46,36 @@ int solution(vector<vector<int>> game_board, vector<vector<int>> table)
 				if (FrontPt[1] + 1 < table.size() && table[FrontPt[0]][FrontPt[1] + 1])
 					YX.push({ FrontPt[0], FrontPt[1] + 1 });
 			}
+
+			// 회전해가며 네개의 퍼즐을 푸시 백.
+			Puzzles.push_back(Puzzle);
+
+			for (auto& Piece : Puzzle)
+			{
+				int SwapBuf = Piece[0];
+				Piece[0] = Piece[1];
+				Piece[1] = SwapBuf;
+
+				Piece[1] *= -1;
+			}
+			Puzzles.push_back(Puzzle);
+
+			for (auto& Piece : Puzzle)
+			{
+				int SwapBuf = Piece[0];
+				Piece[0] = Piece[1];
+				Piece[1] = SwapBuf;
+
+				Piece[0] *= -1;
+			}
+			Puzzles.push_back(Puzzle);
+
+			for (auto& Piece : Puzzle)
+			{
+				Piece[0] *= -1;
+				Piece[1] *= -1;
+			}
+			Puzzles.push_back(Puzzle);
 		}
 	}
 
