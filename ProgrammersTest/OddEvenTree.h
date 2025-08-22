@@ -24,7 +24,8 @@ struct Node
 	vector<Node*> m_Neighbors;
 };
 
-int DFS(Node*);
+int Dfs(Node*, int&, int&);
+void DfsClear(Node*);
 
 vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 {
@@ -42,18 +43,34 @@ vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 		MapOfNodes[Edge[1]]->m_Neighbors.push_back(MapOfNodes[Edge[0]]);
 	}
 
+	int ResNum_1 = 0;
+	int ResNum_2 = 0;
+
+	int OddEvenNum = 0;
+	int RevOddEvenNum = 0;
+
 	// 자식 노드 수 카운트 
 	for (auto& NodePair : MapOfNodes)
 	{
+		OddEvenNum = 0;
+		RevOddEvenNum = 0;
 
+		Dfs(NodePair.second, OddEvenNum, RevOddEvenNum);
+		DfsClear(NodePair.second);
+
+		if (0 == OddEvenNum * RevOddEvenNum)
+		{
+			if (OddEvenNum)
+				++ResNum_1;
+			else
+				++ResNum_2;
+		}
 	}
 
-	DFS(MapOfNodes[1]);
-
-	return vector<int>();
+	return { ResNum_1 , ResNum_2 };
 }
 
-int DFS(Node* _pInNode)
+int Dfs(Node* _pInNode, int& _InOddEvenNum, int& _InRevOddEvenNum)
 {
 	int ChildrenNum = 0;
 	_pInNode->m_bIsChecked = true;
@@ -63,11 +80,27 @@ int DFS(Node* _pInNode)
 		if (pNode->m_bIsChecked) continue;
 
 		++ChildrenNum;
-		ChildrenNum += DFS(pNode);
+		ChildrenNum += Dfs(pNode, _InOddEvenNum, _InRevOddEvenNum);
 	}
 
-	cout << "NodeNum : " << _pInNode->m_NodeNum << " ChildrenNum : " << ChildrenNum << endl;
+	//cout << "NodeNum : " << _pInNode->m_NodeNum << " ChildrenNum : " << ChildrenNum << endl;
+	if (_pInNode->m_NodeNum % 2 == ChildrenNum % 2) // 지금 인수로 들어온 _pInNode가 홀수 노드 혹은 짝수 노드인 경우
+		++_InOddEvenNum;
+	else // 지금 인수로 들어온 _pInNode가 역홀수 노드 혹은 역짝수 노드인 경우
+		++_InRevOddEvenNum;
 
 	return ChildrenNum;
 }
 
+// DFSClear 이런거 만들까? -> 순회 표시 초기화하는 함수.
+void DfsClear(Node* _pInNode)
+{
+	_pInNode->m_bIsChecked = false;
+
+	for (auto pNode : _pInNode->m_Neighbors)
+	{
+		if (!pNode->m_bIsChecked) continue;
+
+		DfsClear(pNode);
+	}
+}
