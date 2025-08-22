@@ -18,11 +18,13 @@ struct Node
 	}
 
 	int m_NodeNum = 0;
-	int m_ChildrenNum = 0;
+	int m_ChildrenNumOfThisTree = 0;
 
 	bool m_bIsChecked = false;
 	vector<Node*> m_Neighbors;
 };
+
+int DFS(Node*);
 
 vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 {
@@ -43,75 +45,22 @@ vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 	// 자식 노드 수 카운트 
 	for (auto& NodePair : MapOfNodes)
 	{
-		queue<Node*> Q;
-		Q.push(NodePair.second);
-		NodePair.second->m_bIsChecked = true;
 
-		while (!Q.empty())
-		{
-			auto pNode = Q.front();
-			Q.pop();
-			////////////////////////////////////////////////////////////////////////////
-			++NodePair.second->m_ChildrenNum;
-			////////////////////////////////////////////////////////////////////////////
-
-			for (const auto pNeighbor : pNode->m_Neighbors)
-			{
-				if (pNeighbor->m_bIsChecked) continue;
-				Q.push(pNeighbor);
-				pNeighbor->m_bIsChecked = true;
-			}
-		}
-
-		for (auto& NodePairForReset : MapOfNodes)
-			NodePairForReset.second->m_bIsChecked = false;
-
-		--NodePair.second->m_ChildrenNum;
 	}
 
-	int OddEvenNumTree = 0;
-	int ReverseOddEvenNumTree = 0;
-
-	for (auto& NodePair : MapOfNodes)
-	{
-		int OddEvenNum = 0;
-		int ReverseOddEvenNum = 0;
-
-		queue<Node*> Q;
-		Q.push(NodePair.second);
-		NodePair.second->m_bIsChecked = true;
-
-		while (!Q.empty())
-		{
-			auto pNode = Q.front();
-			Q.pop();
-
-			////////////////////////////////////////////////////////////////////////////
-			if (pNode->m_NodeNum % 2 == pNode->m_ChildrenNum % 2)
-				++OddEvenNum;
-			else
-				++ReverseOddEvenNum;
-			////////////////////////////////////////////////////////////////////////////
-
-			for (const auto pNeighbor : pNode->m_Neighbors)
-			{
-				if (pNeighbor->m_bIsChecked) continue;
-				Q.push(pNeighbor);
-				pNeighbor->m_bIsChecked = true;
-			}
-		}
-
-		for (auto& NodePairForReset : MapOfNodes)
-			NodePairForReset.second->m_bIsChecked = false;
-
-		if (0 == OddEvenNum * ReverseOddEvenNum)
-		{
-			if (OddEvenNum)
-				++OddEvenNumTree;
-			else if (ReverseOddEvenNum)
-				++ReverseOddEvenNumTree;
-		}
-	}
-
-	return { OddEvenNumTree , ReverseOddEvenNumTree };
+	return vector<int>();
 }
+
+int DFS(Node* _pInNode)
+{
+	_pInNode->m_bIsChecked = true;
+	//cout << _pInNode->m_NodeNum << endl;
+
+	for (auto pNode : _pInNode->m_Neighbors)
+	{
+		if (pNode->m_bIsChecked) continue;
+
+		DFS(pNode);
+	}
+}
+
