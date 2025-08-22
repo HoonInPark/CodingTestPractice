@@ -13,10 +13,14 @@
 //#include "PathFinder.h"
 //#include "HyundaiMobisSim.h"
 //#include "SooPoja.h"
-#include "FillThePuzzle.h"
+//#include "FillThePuzzle.h"
+#include "PullOutPackage.h"
 
 int main()
 {
+}
+
+/*
 	vector<vector<int>> game_board =
 	{
 		{1, 1, 0, 0, 1, 0},
@@ -38,20 +42,4 @@ int main()
 	};
 
 	solution(game_board, table);
-}
-
-/*
-[1,1,0,0,1,0],
-[0,0,1,0,1,0],
-[0,1,1,0,0,1],
-[1,1,0,1,1,1],
-[1,0,0,0,1,0],
-[0,1,1,1,0,0]
-
-[1,0,0,1,1,0],
-[1,0,1,0,1,0],
-[0,1,1,0,1,1],
-[0,0,1,0,0,0],
-[1,1,0,1,1,0],
-[0,1,0,0,0,0]
 */
