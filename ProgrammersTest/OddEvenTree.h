@@ -48,19 +48,26 @@ vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 
 	}
 
+	DFS(MapOfNodes[1]);
+
 	return vector<int>();
 }
 
 int DFS(Node* _pInNode)
 {
+	int ChildrenNum = 0;
 	_pInNode->m_bIsChecked = true;
-	//cout << _pInNode->m_NodeNum << endl;
 
 	for (auto pNode : _pInNode->m_Neighbors)
 	{
 		if (pNode->m_bIsChecked) continue;
 
-		DFS(pNode);
+		++ChildrenNum;
+		ChildrenNum += DFS(pNode);
 	}
+
+	cout << "NodeNum : " << _pInNode->m_NodeNum << " ChildrenNum : " << ChildrenNum << endl;
+
+	return ChildrenNum;
 }
 
