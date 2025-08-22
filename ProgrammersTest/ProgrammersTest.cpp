@@ -14,11 +14,12 @@
 //#include "HyundaiMobisSim.h"
 //#include "SooPoja.h"
 //#include "FillThePuzzle.h"
-#include "PullOutPackage.h"
+//#include "PullOutPackage.h"
+#include "OddEvenTree.h"
 
 int main()
 {
-	solution(22, 6, 8);
+	
 
 }
 
