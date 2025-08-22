@@ -18,6 +18,8 @@
 
 int main()
 {
+	solution(22, 6, 8);
+
 }
 
 /*
