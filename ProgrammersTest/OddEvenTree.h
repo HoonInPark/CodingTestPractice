@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 
 using namespace std;
@@ -25,17 +26,13 @@ struct Node
 };
 
 void Dfs(Node*, int&, int&);
-void DfsClear(Node*);
 
 vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 {
 	unordered_map<int, Node*> MapOfNodes;
 
 	for (const auto NodeNum : nodes)
-	{
-		auto pNode = new Node(NodeNum);
-		MapOfNodes[NodeNum] = pNode;
-	}
+		MapOfNodes[NodeNum] = new Node(NodeNum);
 
 	for (const auto& Edge : edges)
 	{
@@ -56,7 +53,6 @@ vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 		RevOddEvenNum = 0;
 
 		Dfs(NodePair.second, OddEvenNum, RevOddEvenNum);
-		DfsClear(NodePair.second);
 
 		if (0 == OddEvenNum * RevOddEvenNum)
 		{
@@ -66,6 +62,9 @@ vector<int> solution(vector<int> nodes, vector<vector<int>> edges)
 				++ResNum_2;
 		}
 	}
+
+	for (auto& NodePair : MapOfNodes)
+		delete NodePair.second;
 
 	return { ResNum_1 , ResNum_2 };
 }
@@ -83,22 +82,11 @@ void Dfs(Node* _pInNode, int& _InOddEvenNum, int& _InRevOddEvenNum)
 		Dfs(pNode, _InOddEvenNum, _InRevOddEvenNum);
 	}
 
+	_pInNode->m_bIsChecked = false;
+
 	//cout << "NodeNum : " << _pInNode->m_NodeNum << " ChildrenNum : " << ChildrenNum << endl;
 	if (_pInNode->m_NodeNum % 2 == ChildrenNum % 2) // 지금 인수로 들어온 _pInNode가 홀수 노드 혹은 짝수 노드인 경우
 		++_InOddEvenNum;
 	else // 지금 인수로 들어온 _pInNode가 역홀수 노드 혹은 역짝수 노드인 경우
 		++_InRevOddEvenNum;
-}
-
-// DFSClear 이런거 만들까? -> 순회 표시 초기화하는 함수.
-void DfsClear(Node* _pInNode)
-{
-	_pInNode->m_bIsChecked = false;
-
-	for (auto pNode : _pInNode->m_Neighbors)
-	{
-		if (!pNode->m_bIsChecked) continue;
-
-		DfsClear(pNode);
-	}
 }
