@@ -15,25 +15,11 @@
 //#include "SooPoja.h"
 //#include "FillThePuzzle.h"
 //#include "PullOutPackage.h"
-#include "OddEvenTree.h"
+//#include "OddEvenTree.h"
+#include "ServerIncrementCount.h"
 
 int main()
 {
-	vector<int> nodes = { 9, 15, 14, 7, 6, 1, 2, 4, 5, 11, 8, 10 };
-	vector<vector<int>> edges =
-	{
-		{5, 14},
-		{1, 4},
-		{9, 11},
-		{2, 15},
-		{2, 5},
-		{9, 7},
-		{8, 1},
-		{6, 4},
-	};
-
-	solution(nodes, edges);
-
 }
 
 /*

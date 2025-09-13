@@ -143,6 +143,7 @@
     <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
     <ClInclude Include="PullOutPackage.h" />
+    <ClInclude Include="ServerIncrementCount.h" />
     <ClInclude Include="SooPoja.h" />
     <ClInclude Include="SumOpt.h" />
   </ItemGroup>
