@@ -68,5 +68,8 @@
     <ClInclude Include="ServerIncrementCount.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="PerfectCrime.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -140,6 +140,7 @@
     <ClInclude Include="IsPrimeNum.h" />
     <ClInclude Include="OddEvenTree.h" />
     <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="PerfectCrime.h" />
     <ClInclude Include="PrimeNumGen.h" />
     <ClInclude Include="PseudoCantorBitArray.h" />
     <ClInclude Include="PullOutPackage.h" />
