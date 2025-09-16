@@ -1,30 +1,73 @@
-#pragma once
+ï»¿#pragma once
 
 /*
 * https://school.programmers.co.kr/learn/courses/30/lessons/389479?language=cpp
 */
 
-#include <string>
 #include <vector>
+#include <deque>
+#include <queue>
 
 using namespace std;
 
-int solution(vector<int> players, int m, int k) 
+int solution(vector<int> players, int m, int k)
 {
-	
+	for (int i = 0; i < players.size(); ++i)
+		players[i] = players[i] / m;
 
+	// ì•„ëž˜ì™€ ê°™ì€ í˜•íƒœë¡œ ë‹¨ìˆœí™”. ì—¬ê¸°ì— í­ì´ kì¸ ë§‰ëŒ€ë¥¼ ìž˜ë¼ì„œ ì—°ì†ë˜ë„ë¡ ë†“ê¸°.
+	// 0 0 1 1 0 0 0 0 0 0 1 0 0 2 0 1 0 4 1 1 3 0 0 1
+	// ì„œë²„ ì¦ì„¤ íšŸìˆ˜ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤. 
+	// 0 0 1 0 0 0 0 0 0 0 1 0 0 1 0 0 0 3 0 0 0 0 0 1
+
+	deque<int> Servers;
+	int CurTime = 0;
+	queue<deque<int>::iterator> ItToErase;
+
+	int Res = 0;
+	
+	while (CurTime < 24)
+	{
+		const int CurServerSize = Servers.size();
+		if (CurServerSize < players[CurTime])
+		{
+			for (int i = 0; i < players[CurTime] - CurServerSize; ++i)
+			{
+				Servers.push_back(k);
+				++Res;
+			}
+		}
+
+		for (auto iter = Servers.begin(); iter != Servers.end(); iter++)
+		{
+			--(*iter);
+
+			if (*iter < 1)
+				ItToErase.push(iter);
+		}
+
+		while (!ItToErase.empty())
+		{
+			Servers.erase(ItToErase.front());
+			ItToErase.pop();
+		}
+
+		++CurTime;
+	}
+
+	return Res;
 }
 
 /*
-¸¸¾à ¾î´À ½Ã°£´ëÀÇ ÀÌ¿ëÀÚ°¡ m¸í ¹Ì¸¸ÀÌ¸é nÀº 0ÀÌ¹Ç·Î ¼­¹ö Áõ¼³Àº ÇÊ¿ä ¾ø´Ù. 
-Áõ¼³ÇÑ ¼­¹ö´Â m¸íÀÇ »ç¿ëÀÚ¸¦ °¨´çÇÏ´Â ¼³Á¤ÀÎ µí?
-k´Â ±× Áõ¼³ÇÑ ¼­¹öÀÇ ¼ö¸í.
+ë§Œì•½ ì–´ëŠ ì‹œê°„ëŒ€ì˜ ì´ìš©ìžê°€ mëª… ë¯¸ë§Œì´ë©´ nì€ 0ì´ë¯€ë¡œ ì„œë²„ ì¦ì„¤ì€ í•„ìš” ì—†ë‹¤.
+ê¸°ì¡´ì— ëŒì•„ê°€ëŠ” ì„œë²„ê°€ mëª…, ì¦ì„¤í•œ ì„œë²„ëŠ” í•œê°œë‹¹ mëª…ì˜ ì‚¬ìš©ìžë¥¼ ê°ë‹¹í•˜ëŠ” ì„¤ì •ì¸ ë“¯?
+këŠ” ê·¸ ì¦ì„¤í•œ ì„œë²„ì˜ ìˆ˜ëª….
 
-¾Æ·¡ °¢ ¼ýÀÚ¸¦ ÇØ´ç ½Ã°£´ë(ÀÎµ¦½º¿Í µ¿ÀÏ)¿¡ Á¢¼ÓÀ» ½ÃÀÛÇÑ »ç¿ëÀÚ ¼ö¶ó°í »ý°¢ÇÏÀÚ. 
+ì•„ëž˜ ê° ìˆ«ìžë¥¼ í•´ë‹¹ ì‹œê°„ëŒ€(ì¸ë±ìŠ¤ì™€ ë™ì¼)ì— ì ‘ì†ì„ ì‹œìž‘í•œ ì‚¬ìš©ìž ìˆ˜ë¼ê³  ìƒê°í•˜ìž.
  [0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5]
- 0½Ã																		23½Ã
+ 0ì‹œ																		23ì‹œ
 
-ÁÂ¿ì ÆøÀÌ k, ³ôÀÌ°¡ mÀÎ ¸·´ë¸¦ ÃÖ¼ÒÇÑÀ¸·Î µÎ¾î¼­ 
-°¢ ÀÎµ¦½º¿¡¼­ ¿ä±¸ÇÏ´Â ³ôÀÌ¸¸Å­ ½×¾Æ¿Ã¸®´Â °Å¶ó°í ¹®Á¦¸¦ ¹Ù²ã »ý°¢ÇÒ ¼ö ÀÖÀ½.
-³­ ÃµÀç´Ù. 
+ì¢Œìš° í­ì´ k, ë†’ì´ê°€ mì¸ ë§‰ëŒ€ë¥¼ ìµœì†Œí•œìœ¼ë¡œ ë‘ì–´ì„œ
+ê° ì¸ë±ìŠ¤ì—ì„œ ìš”êµ¬í•˜ëŠ” ë†’ì´ë§Œí¼ ìŒ“ì•„ì˜¬ë¦¬ëŠ” ê±°ë¼ê³  ë¬¸ì œë¥¼ ë°”ê¿” ìƒê°í•  ìˆ˜ ìžˆìŒ.
+ë‚œ ì²œìž¬ë‹¤.
 */
