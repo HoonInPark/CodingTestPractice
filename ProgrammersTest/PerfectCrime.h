@@ -6,13 +6,13 @@
 
 #include <vector>
 #include <algorithm> 
-#include<cassert>
+#include <cassert>
 
 using namespace std;
 
-bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
-void CombHelper(const vector<int>& arr, int n, int start, vector<int>& current, vector<vector<int>>& result);
-vector<vector<int>> GenComb(const vector<int>& arr, int n);
+bool                Cmp         (const vector<int>& _InFormer, const vector<int>& _InLater);
+void                CombHelper  (const vector<int>& arr, int n, int start, vector<int>& current, vector<vector<int>>& result);
+vector<vector<int>> GenComb     (const vector<int>& arr, int n);
 
 int solution(vector<vector<int>> info, int n, int m)
 {
@@ -27,7 +27,7 @@ int solution(vector<vector<int>> info, int n, int m)
 
     sort(info.begin(), info.end(), Cmp);
 
-    for (int a = 1; a <= info.size(); ++a)
+    for (int PickNumA = 0; PickNumA < info.size(); ++PickNumA)
     {
 
     }
@@ -41,23 +41,28 @@ bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater)
 }
 
 // Backtracking algo
-void CombHelper(const vector<int>& arr, int n, int start, vector<int>& current, vector<vector<int>>& result)
+void CombHelper(
+    const vector<int>& _InArr, 
+    const int _InPickNum, 
+    int _InStartNum, 
+    vector<int>& _InCurVec, 
+    vector<vector<int>>& _InRetVec) 
 {
-    if (current.size() == n) 
+    if (_InCurVec.size() == _InPickNum) 
     {
-        result.push_back(current);
+        _InRetVec.push_back(_InCurVec);
         return;
     }
 
-    for (int i = start; i < arr.size(); i++) 
+    for (int i = _InStartNum; i < _InArr.size(); i++) 
     {
-        current.push_back(arr[i]);
-        CombHelper(arr, n, i + 1, current, result);
-        current.pop_back(); // backtrack
+        _InCurVec.push_back(_InArr[i]);
+        CombHelper(_InArr, _InPickNum, i + 1, _InCurVec, _InRetVec);
+        _InCurVec.pop_back(); // backtrack
     }
 }
 
-vector<vector<int>> GenComb(const vector<int>& arr, int n)
+vector<vector<int>> GenComb(const vector<int>& arr, const int n)
 {
     vector<vector<int>> result;
     vector<int> current;

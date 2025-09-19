@@ -21,6 +21,19 @@
 
 int main()
 {
+	/*
+	vector<int> arr = { 1, 2, 3, 4, 5 };  // 이미 오름차순 정렬된 배열
+	const int n = 3;
+
+	vector<vector<int>> combs = GenComb(arr, n);
+
+	cout << "조합 결과:" << endl;
+	for (const auto& comb : combs) 
+	{
+		for (int x : comb) cout << x << " ";
+		cout << endl;
+	}
+	*/
 }
 
 /*
