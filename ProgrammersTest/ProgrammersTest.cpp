@@ -21,50 +21,17 @@
 
 int main()
 {
-	/*
-	vector<int> arr = { 1, 2, 3, 4, 5 };  // 이미 오름차순 정렬된 배열
-	const int n = 3;
-
-	vector<vector<int>> combs = GenComb(arr, n);
-
-	cout << "조합 결과:" << endl;
-	for (const auto& comb : combs) 
+	vector<vector<int>> test =
 	{
-		for (int x : comb) cout << x << " ";
-		cout << endl;
-	}
-	*/
+		{1, 2},
+		{2, 3},
+		{2, 1}
+	};
+
+	solution(test, 4, 4);
 }
 
 /*
-	vector<vector<int>> game_board =
-	{
-		{1, 1, 0, 0, 1, 0},
-		{0, 0, 1, 0, 1, 0},
-		{0, 1, 1, 0, 0, 1},
-		{1, 1, 0, 1, 1, 1},
-		{1, 0, 0, 0, 1, 0},
-		{0, 1, 1, 1, 0, 0}
-	};
-
-	vector<vector<int>> table =
-	{
-		{1, 0, 0, 1, 1, 0},
-		{1, 0, 1, 0, 1, 0},
-		{0, 1, 1, 0, 1, 1},
-		{0, 0, 1, 0, 0, 0},
-		{1, 1, 0, 1, 1, 0},
-		{0, 1, 0, 0, 0, 0}
-	};
-
-	solution(game_board, table);
-
-[5, 14], 
-[1, 4], 
-[9, 11], 
-[2, 15], 
-[2, 5], 
-[9, 7], 
-[8, 1], 
-[6, 4]
+[[3, 3]
+,[3, 3]]
 */

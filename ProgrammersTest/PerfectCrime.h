@@ -7,12 +7,11 @@
 #include <vector>
 #include <algorithm> 
 #include <cassert>
+#include <functional>
 
 using namespace std;
 
-bool                Cmp         (const vector<int>& _InFormer, const vector<int>& _InLater);
-void                CombHelper  (const vector<int>& arr, int n, int start, vector<int>& current, vector<vector<int>>& result);
-vector<vector<int>> GenComb     (const vector<int>& arr, int n);
+bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
 
 int solution(vector<vector<int>> info, int n, int m)
 {
@@ -27,47 +26,59 @@ int solution(vector<vector<int>> info, int n, int m)
 
     sort(info.begin(), info.end(), Cmp);
 
-    for (int PickNumA = 0; PickNumA < info.size(); ++PickNumA)
-    {
-
-    }
+    int Res = INT_MAX;
     
-    return -1;
+    vector<bool> Flags(info.size()); // a가 선택한 인덱스엔 true가 들어 있음.
+    fill(Flags.begin(), Flags.end(), false);
+
+    // DFS...
+    function<void(const vector<vector<int>>&, vector<int>&, int)> FindComb =
+        [&](const vector<vector<int>>& _InArr, vector<int>& _InCurStack, int _InStartNum) mutable -> void
+        {
+            for (int i = _InStartNum; i < _InArr.size(); ++i)
+            {
+                _InCurStack.push_back(i);
+                Flags[i] = true;
+
+                ///////////////////////////////////////////////////////////////////////////////////////////
+                // TODO : 현재 스택의 상태가 문제에서 요구하는 바로 그것인지 확인하고 리턴하는 로직이 들어가야 한다. 
+                int A = 0;
+                int B = 0;
+
+                for (int j = 0; j < _InArr.size(); ++j)
+                {
+                    if (Flags[j])
+                        A += info[j][0];
+                    else
+                        B += info[j][1];
+                }
+
+                if (A < n && B < m)
+                {
+                    Res = min(Res, A);
+                }
+                ///////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////
+
+                FindComb(_InArr, _InCurStack, i + 1);
+
+                Flags[_InCurStack.back()] = false;
+                _InCurStack.pop_back();
+            }
+        };
+    
+    vector<int> Buf;
+    Buf.reserve(info.size());
+
+    FindComb(info, Buf, 0);
+
+    if (INT_MAX == Res) return -1;
+    else return Res;
 }
 
 bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater)
 {
     return _InFormer[0] < _InLater[0];
-}
-
-// Backtracking algo
-void CombHelper(
-    const vector<int>& _InArr, 
-    const int _InPickNum, 
-    int _InStartNum, 
-    vector<int>& _InCurVec, 
-    vector<vector<int>>& _InRetVec) 
-{
-    if (_InCurVec.size() == _InPickNum) 
-    {
-        _InRetVec.push_back(_InCurVec);
-        return;
-    }
-
-    for (int i = _InStartNum; i < _InArr.size(); i++) 
-    {
-        _InCurVec.push_back(_InArr[i]);
-        CombHelper(_InArr, _InPickNum, i + 1, _InCurVec, _InRetVec);
-        _InCurVec.pop_back(); // backtrack
-    }
-}
-
-vector<vector<int>> GenComb(const vector<int>& arr, const int n)
-{
-    vector<vector<int>> result;
-    vector<int> current;
-    CombHelper(arr, n, 0, current, result);
-    return result;
 }
 
 /*
