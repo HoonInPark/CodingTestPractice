@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <vector>
+#include <algorithm> 
 
 using namespace std;
 
@@ -18,9 +18,24 @@ using namespace std;
 }
 */
 
-vector<vector<int>> solution(const vector<vector<int>>& _InItems)
-{
-	
+inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
 
-	return vector<vector<int>>();
+vector<vector<int>> solution(vector<vector<int>> _InItems)
+{
+	sort(_InItems.begin(), _InItems.end(), Cmp);
+
+	vector<vector<int>> RetVec;
+	RetVec.reserve(6);
+
+	for (int ItemNum = 1; ItemNum <= 6; ++ItemNum)
+	{
+		
+	}
+
+	return RetVec;
+}
+
+inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater)
+{
+	return _InFormer[0] > _InLater[0]; // 인덱스 0 기준 내림차순
 }
