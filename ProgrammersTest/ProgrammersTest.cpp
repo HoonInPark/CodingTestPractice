@@ -17,10 +17,12 @@
 //#include "PullOutPackage.h"
 //#include "OddEvenTree.h"
 //#include "ServerIncrementCount.h"
-#include "PerfectCrime.h"
+//#include "PerfectCrime.h"
+#include "Knapsack.h"
 
 int main()
 {
+	/*
 	vector<vector<int>> test =
 	{
 		{1, 2},
@@ -29,6 +31,19 @@ int main()
 	};
 
 	solution(test, 4, 4);
+	*/
+
+	vector<vector<int>> test =
+	{
+		{ 4, 3 },
+		{ 2, 1 },
+		{ 5, 6 },
+		{ 6, 5 },
+		{ 1, 2 },
+		{ 3, 3 },
+	};
+
+	solution(test);
 }
 
 /*

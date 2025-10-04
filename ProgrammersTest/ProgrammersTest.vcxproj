@@ -138,6 +138,7 @@
     <ClInclude Include="HanoiTower.h" />
     <ClInclude Include="HyundaiMobisSim.h" />
     <ClInclude Include="IsPrimeNum.h" />
+    <ClInclude Include="Knapsack.h" />
     <ClInclude Include="OddEvenTree.h" />
     <ClInclude Include="PathFinder.h" />
     <ClInclude Include="PerfectCrime.h" />
