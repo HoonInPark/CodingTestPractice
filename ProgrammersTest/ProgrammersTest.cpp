@@ -43,7 +43,7 @@ int main()
 		{ 3, 3 },
 	};
 
-	solution(test);
+	solution(test, 6);
 }
 
 /*

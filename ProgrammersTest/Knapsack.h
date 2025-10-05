@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm> 
+#include <functional>
 
 using namespace std;
 
@@ -16,26 +17,84 @@ using namespace std;
 	{ 1, 2 },
 	{ 3, 3 }
 }
+
+정렬하면...
+6 5
+5 6
+4 3
+3 3
+2 1
+1 2
 */
 
 inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
 
-vector<vector<int>> solution(vector<vector<int>> _InItems)
+vector<vector<int>> solution(vector<vector<int>> _InItems, const int _InCap)
 {
 	sort(_InItems.begin(), _InItems.end(), Cmp);
 
-	vector<vector<int>> RetVec;
+	vector<int> RetVec;
 	RetVec.reserve(6);
 
-	for (int ItemNum = 1; ItemNum <= 6; ++ItemNum)
-	{
-		
-	}
+	// 한개만 담을 때 최댓값 저장해 두기.
+	RetVec.push_back(0);
+	int PrevSumOfVal = _InItems[0][0];
 
-	return RetVec;
+	// 두개 담는 것부터 생각하기.
+	vector<int> CombVec;
+	CombVec.reserve(6);
+
+	int MaxVal = 0;
+
+	function<void(const int, const int, vector<int>&)> Comb =
+		[&](const int _InLeftItemNum, const int _InLowerBound, vector<int>& _OutComb)
+		{
+			if (_InLeftItemNum < 1)
+			{
+				// do something for MaxVal
+				int Val = 0;
+				int Weight = 0;
+				for (const auto IdxInComb : _OutComb)
+				{
+					Val += _InItems[IdxInComb][0];
+					Weight += _InItems[IdxInComb][1];
+				}
+
+				if (MaxVal < Val && Weight <= _InCap)
+				{
+					MaxVal = Val;
+
+					RetVec.clear();
+					RetVec = _OutComb;
+				}
+
+				_OutComb.pop_back();
+
+				return;
+			}
+
+			for (int i = _InLowerBound; i < _InItems.size(); ++i)
+			{
+				_OutComb.push_back(i);
+				Comb(_InLeftItemNum - 1, i + 1, _OutComb);
+			}
+
+			if (false == _OutComb.empty())
+				_OutComb.pop_back();
+		};
+
+	for (int i = 2; i <= 6; ++i)
+	{
+		Comb(i, 0, CombVec);
+	}
+	
+	return vector<vector<int>>();
 }
 
 inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater)
 {
-	return _InFormer[0] > _InLater[0]; // 인덱스 0 기준 내림차순
+	if (_InFormer[0] == _InLater[0])
+		return _InFormer[1] < _InLater[1]; // 만약 값이 동일하면 무게 기준 오름차순
+	else
+		return _InFormer[0] > _InLater[0]; // 인덱스 0 기준 내림차순
 }
