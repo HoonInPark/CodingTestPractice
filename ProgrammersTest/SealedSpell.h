@@ -16,7 +16,7 @@ string solution(long long n, vector<string> bans)  // 1부터 시작하는 카운팅
 {
     string ResStr;
 
-    vector<int> BanStrIdxs;
+    vector<long long> BanStrIdxs;
 
     // 전부 0으로부터 시작하는 수로 변환
     for (const auto& BanStr : bans)
@@ -24,14 +24,18 @@ string solution(long long n, vector<string> bans)  // 1부터 시작하는 카운팅
         long long ResNum = 0;
         for (long long i = 0; i < BanStr.size() - 1; ++i)
         {
-            ResNum += Pow26(BanStr.size() - 1 - i)* (BanStr[i] - 96);
+            ResNum += Pow26(BanStr.size() - 1 - i) * (BanStr[i] - 96);
         }
 
         ResNum += BanStr[BanStr.size() - 1] - 97;
         BanStrIdxs.push_back(ResNum);
     }
 
+    --n;
+    for (long long j = n; j <= n + bans.size(); ++j)
+    {
 
+    }
 
     return ResStr;
 }
