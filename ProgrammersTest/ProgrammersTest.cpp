@@ -18,7 +18,7 @@
 //#include "OddEvenTree.h"
 //#include "ServerIncrementCount.h"
 //#include "PerfectCrime.h"
-#include "Knapsack.h"
+#include "SealedSpell.h"
 
 int main()
 {
@@ -31,7 +31,6 @@ int main()
 	};
 
 	solution(test, 4, 4);
-	*/
 
 	vector<vector<int>> test =
 	{
@@ -44,6 +43,10 @@ int main()
 	};
 
 	solution2(test, 6);
+	*/
+
+	solution(7388, { "gqk", "kdn", "jxj", "jxi", "fug", "jxg", "ewq", "len", "bhc" });
+
 }
 
 /*
