@@ -135,6 +135,7 @@
     <ClInclude Include="EnglishWordChain.h" />
     <ClInclude Include="FarthestNode.h" />
     <ClInclude Include="FillThePuzzle.h" />
+    <ClInclude Include="ForkliftAndCrane.h" />
     <ClInclude Include="HanoiTower.h" />
     <ClInclude Include="HyundaiMobisSim.h" />
     <ClInclude Include="IsPrimeNum.h" />
