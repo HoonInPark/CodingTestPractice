@@ -49,7 +49,7 @@ int main()
 	solution(7388, { "gqk", "kdn", "jxj", "jxi", "fug", "jxg", "ewq", "len", "bhc" });
 	*/
 
-
+	solution({ "AZWQY", "CAABX", "BBDDA", "ACACA" }, { "A", "BB", "A" });
 
 }
 
