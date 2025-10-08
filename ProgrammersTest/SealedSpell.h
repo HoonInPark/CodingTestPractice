@@ -6,19 +6,15 @@
 
 #include <string>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
 long long Pow26(long long exp);
 
-string solution(long long n, vector<string> bans)  // 1부터 시작하는 카운팅
+string solution(long long n, vector<string> bans)
 {
-    string ResStr;
-
     vector<long long> BanStrIdxs;
 
-    // 전부 0으로부터 시작하는 수로 변환
     for (const auto& BanStr : bans)
     {
         long long ResNum = 0;
@@ -32,10 +28,43 @@ string solution(long long n, vector<string> bans)  // 1부터 시작하는 카운팅
     }
 
     --n;
+    long long ResNum = 0;
+
     for (long long j = n; j <= n + bans.size(); ++j)
     {
+        long long FormerNumCnt = 0;
+        for (const auto BanStrIdx : BanStrIdxs)
+        {
+            if (BanStrIdx < j)
+                ++FormerNumCnt;
+        }
 
+        if (FormerNumCnt + n == j)
+        {
+            ResNum = j;
+            break;
+        }
     }
+
+    long long k = 1;
+    while (true)
+    {
+        if (ResNum < Pow26(k))
+            break;
+        else
+            ++k;
+    }
+
+    --k;
+    string ResStr(k + 1, 'a');
+    for (long long l = k; l > 0; --l)
+    {
+        long long DigitNum = ResNum / Pow26(l);
+        ResNum -= DigitNum * Pow26(l);
+        ResStr[k - l] = 97 + DigitNum - 1;
+    }
+
+    ResStr[k] = 97 + ResNum;
 
     return ResStr;
 }

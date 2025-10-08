@@ -45,7 +45,7 @@ int main()
 	solution2(test, 6);
 	*/
 
-	//solution(30, { "d", "e", "bb", "aa", "ae" });
+	solution(30, { "d", "e", "bb", "aa", "ae" });
 	solution(7388, { "gqk", "kdn", "jxj", "jxi", "fug", "jxg", "ewq", "len", "bhc" });
 
 }
