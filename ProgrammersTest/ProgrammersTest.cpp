@@ -19,41 +19,11 @@
 //#include "ServerIncrementCount.h"
 //#include "PerfectCrime.h"
 //#include "SealedSpell.h"
-#include "ForkliftAndCrane.h"
+//#include "ForkliftAndCrane.h"
+//#include "FlexibleWork.h"
+#include "VideoPlayer.h"
 
 int main()
 {
-	/*
-	vector<vector<int>> test =
-	{
-		{1, 2},
-		{2, 3},
-		{2, 1}
-	};
-
-	solution(test, 4, 4);
-
-	vector<vector<int>> test =
-	{
-		{ 4, 3 },
-		{ 2, 1 },
-		{ 5, 6 },
-		{ 6, 5 },
-		{ 1, 2 },
-		{ 3, 3 },
-	};
-
-	solution2(test, 6);
-
-	solution(30, { "d", "e", "bb", "aa", "ae" });
-	solution(7388, { "gqk", "kdn", "jxj", "jxi", "fug", "jxg", "ewq", "len", "bhc" });
-	*/
-
-	solution({ "HAH", "HBH", "HHH", "HAH", "HBH" }, { "C", "B", "B", "B", "B", "H" });
 
 }
-
-/*
-[[3, 3]
-,[3, 3]]
-*/

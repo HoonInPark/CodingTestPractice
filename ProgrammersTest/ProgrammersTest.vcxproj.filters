@@ -80,5 +80,11 @@
     <ClInclude Include="ForkliftAndCrane.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="FlexibleWork.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoPlayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

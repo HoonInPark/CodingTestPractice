@@ -135,6 +135,7 @@
     <ClInclude Include="EnglishWordChain.h" />
     <ClInclude Include="FarthestNode.h" />
     <ClInclude Include="FillThePuzzle.h" />
+    <ClInclude Include="FlexibleWork.h" />
     <ClInclude Include="ForkliftAndCrane.h" />
     <ClInclude Include="HanoiTower.h" />
     <ClInclude Include="HyundaiMobisSim.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="ServerIncrementCount.h" />
     <ClInclude Include="SooPoja.h" />
     <ClInclude Include="SumOpt.h" />
+    <ClInclude Include="VideoPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
