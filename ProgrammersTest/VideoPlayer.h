@@ -20,32 +20,30 @@ string solution(
 
 	int Pos10 = ParseTo10(pos);
 
+	if (OpStart10 <= Pos10 &&
+		OpEnd10 >= Pos10)
+		Pos10 = OpEnd10;
+
 	for (const auto& Command : commands)
 	{
 		if ('n' == Command[0])
 		{
-			int NewPos10 = Pos10 + 10;
-
-			if (NewPos10 > VideoLen10)
+			if (Pos10 + 10 > VideoLen10)
 				Pos10 = VideoLen10;
-			else if (OpStart10 <= NewPos10 &&
-				OpEnd10 >= NewPos10)
-				Pos10 = OpEnd10;
 			else
 				Pos10 += 10;
 		}
 		else
 		{
-			int NewPos10 = Pos10 - 10;
-
-			if (NewPos10 < 0)
+			if (Pos10 - 10 < 0)
 				Pos10 = 0;
-			//else if (OpStart10 <= NewPos10 &&
-			//	OpEnd10 >= NewPos10)
-			//	;
 			else
 				Pos10 -= 10;
 		}
+
+		if (OpStart10 <= Pos10 &&
+			OpEnd10 >= Pos10)
+			Pos10 = OpEnd10;
 	}
 
 	string answer(5, 0);
@@ -60,5 +58,5 @@ string solution(
 
 int ParseTo10(string _InTime)
 {
-	return 60 * (_InTime[0] * 10 + _InTime[1]) + (_InTime[2] * 10 + _InTime[3]);
+	return 60 * ((_InTime[0] - 48) * 10 + (_InTime[1] - 48)) + ((_InTime[3] - 48) * 10 + (_InTime[4] - 48));
 }
