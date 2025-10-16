@@ -21,9 +21,9 @@
 //#include "SealedSpell.h"
 //#include "ForkliftAndCrane.h"
 //#include "FlexibleWork.h"
-#include "VideoPlayer.h"
+//#include "VideoPlayer.h"
+#include "RecoverMathod.h"
 
 int main()
 {
-	solution("10:55", "00:05", "00:15", "06:55", { "prev", "next", "next" });
 }
