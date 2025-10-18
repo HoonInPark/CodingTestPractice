@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int Pow(const int, const int);
+
 vector<string> solution(vector<string> expressions)
 {
     // basic op in ascii num, 1st num, 2nd num, res num
@@ -70,23 +72,32 @@ vector<string> solution(vector<string> expressions)
             if (false == bIsEachDigitFitForNumSys)
                 break;
 
-            vector<int> Nums(3, 0);
+            vector<int> Nums(3, 0); // 10 진수 배열
             for (int l = 1; l < 4; ++l)
             {
-                int Digit = 1;
-
-                for (int p = Method[l].size() - 1; p >= 0; --p)
+                if (Method[l][0] < 0)
                 {
-                    Nums[l - 1] += Method[l][p] * Digit;
-                    Digit *= NumSys;
+                    Nums[l - 1] = -1;
+                    break;
                 }
+
+                for (int p = 0; p < Method[l].size(); ++p)
+                    Nums[l - 1] += Method[l][p] * Pow(NumSys, Method[l].size() - 1 - p);
             }
 
             if (Nums[2] > 0) // if it doesn't have 'X'
             {
                 // check if equation of basic operation is valid
-                if (Nums[2] != (Nums[0] + Nums[1]))
-                    bIsEachEqIsValid = false;
+                if ('+' == Method[0][0]) // if '+'
+                {
+                    if (Nums[2] != (Nums[0] + Nums[1]))
+                        bIsEachEqIsValid = false;
+                }
+                else // if '-'
+                {
+                    if (Nums[2] != (Nums[0] - Nums[1]))
+                        bIsEachEqIsValid = false;
+                }
             }
             else // if it has 'X'
             {
@@ -98,17 +109,25 @@ vector<string> solution(vector<string> expressions)
                 break;
         }
 
-        if (true == bIsEachEqIsValid)
+        if (false == bIsEachEqIsValid)
             continue;
 
         for (int q = 0; q < MethodIdxsToSolve.size(); ++q)
         {
-            auto& Ex = expressions[q];
+            auto Ex = expressions[MethodIdxsToSolve[q]];
             const auto& Nums = MethodNumsToSolve[q];
 
             Ex.pop_back();
 
-            const int ResNum = Nums[0] + Nums[1];
+            int ResNum;
+            if ('+' == Methods[MethodIdxsToSolve[q]][0][0]) // if '+'
+            {
+                ResNum = Nums[0] + Nums[1];
+            }
+            else // if '-'
+            {
+                ResNum = Nums[0] - Nums[1];
+            }
 
             int Digit = NumSys;
             int DigitNum = 1;
@@ -119,13 +138,26 @@ vector<string> solution(vector<string> expressions)
                 ++DigitNum;
             }
 
-            string StrX;
-            for (int r = 0; r < DigitNum; ++r)
-            {
-                
-            }
+            string StrX(DigitNum, 'a');
+            for (int r = 1; r <= DigitNum; ++r)
+                StrX[r - 1] = ResNum / Pow(NumSys, DigitNum - r) + 48;
+
+            answer.push_back(Ex + StrX);
         }
     }
 
     return answer;
+}
+
+int Pow(const int _InBase, const int _InExp)
+{
+    int ResNum = 1;
+
+    if (0 == _InExp)
+        return ResNum;
+
+    for (int i = 0; i < _InExp; ++i)
+        ResNum *= _InBase;
+
+    return ResNum;
 }

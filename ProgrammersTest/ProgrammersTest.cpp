@@ -22,10 +22,20 @@
 //#include "ForkliftAndCrane.h"
 //#include "FlexibleWork.h"
 //#include "VideoPlayer.h"
-#include "RecoverMathod.h"
+//#include "RecoverMathod.h"
+#include "Knapsack.h"
 
 int main()
 {
-	solution({ "14 + 3 = 17", "13 - 6 = X", "51 - 5 = 44" });
-
+	vector<vector<int>> test =
+	{
+		{ 4, 3 },
+		{ 2, 1 },
+		{ 5, 6 },
+		{ 6, 5 },
+		{ 1, 2 },
+		{ 3, 3 }
+	};
+	
+	solution(test, 10);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <algorithm> 
 #include <functional>
@@ -27,6 +28,7 @@ using namespace std;
 1 2
 */
 
+/*
 inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
 
 vector<vector<int>> solution1(vector<vector<int>> _InItems, const int _InCap)
@@ -104,11 +106,13 @@ inline bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater)
 	else
 		return _InFormer[0] > _InLater[0]; // 인덱스 0 기준 내림차순
 }
+*/
 
 /*
 * TODO : 어떻게 최대값이 나오도록 하는 벡터 반환할지 고민.
 * TODO : solution3 함수 이해하기. 이게 가장 최적화된 해답임.
 */
+/*
 vector<vector<int>> solution2(vector<vector<int>> _InItems, const int _InCap)
 {
 	vector<vector<int>> RetVec;
@@ -140,15 +144,16 @@ vector<vector<int>> solution2(vector<vector<int>> _InItems, const int _InCap)
 
 	return RetVec;
 }
+*/
 
-void solution3(vector<vector<int>> _InItems, const int _InCap)
+int solution(vector<vector<int>> _InItems, const int _InCap)
 {
 	vector<int> dp(_InCap + 1, 0);
 
-	for (auto& Item : _InItems)
+	for (const auto& Item : _InItems)
 	{
-		int Val = Item[0];
-		int Weight = Item[1];
+		const int Val = Item[0];
+		const int Weight = Item[1];
 
 		// 뒤에서부터 순회해야 중복 사용 방지 (0/1 knapsack)
 		for (int w = _InCap; w >= Weight; --w)
