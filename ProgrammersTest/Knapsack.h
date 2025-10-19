@@ -3,6 +3,7 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -52,6 +53,14 @@ int solution(vector<vector<int>> _InItems, const int _InCap)
 		};
 
 	DP[_InItems.size() - 1][_InCap] = GetMaxValue(_InItems.size() - 1, _InCap);
+
+	for (int i = 0; i < DP.size(); ++i)
+	{
+		for (int j = 0; j < DP[0].size(); ++j)
+			cout << DP[i][j] << ' ';
+
+		cout << ' ' << endl;
+	}
 
 	return -1;
 }

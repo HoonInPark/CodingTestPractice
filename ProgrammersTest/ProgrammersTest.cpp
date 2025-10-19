@@ -37,5 +37,5 @@ int main()
 		{ 3, 3 }
 	};
 	
-	solution(test, 10);
+	solution(test, 6);
 }
