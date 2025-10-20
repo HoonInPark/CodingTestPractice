@@ -37,5 +37,6 @@ int main()
 		{ 3, 3 }
 	};
 	
-	solution(test, 6);
+	int Res = solution(test, 6);
+	cout << Res << endl;
 }

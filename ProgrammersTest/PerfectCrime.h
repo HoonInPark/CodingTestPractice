@@ -3,32 +3,38 @@
 */
 
 #include <vector>
-#include <algorithm> 
-#include <cassert>
+#include <algorithm>
 #include <functional>
 
 using namespace std;
 
-bool Cmp(const vector<int>& _InFormer, const vector<int>& _InLater);
-
 int solution(vector<vector<int>> info, int n, int m)
 {
+    // 두번째 인수는 B에게 남은 여유 흔적 수이고, 
+    // 리턴 값은 A가 남기는 흔적의 최소 수이다. 
+    function<int(int, int)> GetMinTraceOfA =
+        [&](int _InIdx, int _InT) mutable
+        {
+            if (0 == _InIdx)
+            {
+                int MinVal = 2147483647;
+                for (const auto& Item : info)
+                {
+                    //MinVal = min(MinVal, Item[i][]);
+                }
+            }
 
+            int WhenStealerB = GetMinTraceOfA(_InIdx - 1, _InT);
+            if (info[_InIdx][1] < _InT)
+            {
+                int WhenStealerA = info[_InIdx][0] + GetMinTraceOfA(_InIdx - 1, _InT - info[_InIdx][1]);
+                return min(WhenStealerA, WhenStealerB);
+            }
+            else
+            {
+                return WhenStealerB;
+            }
+        };
 
-    return -1;
+    return GetMinTraceOfA(info.size() - 1, m);
 }
-
-/*
-* 1. 모두 훔쳐야 한다.
-* 2. 경찰에 잡히면 안된다.
-* 3. 잡히는 조건은 흔적 총 합이 A는 n개 이상, B는 m개 이상일 때.
-* 4. 반환값은 A가 최소로 남기는 흔적 수
-*
-* A는 최소가 되게 훔치고, B는 붙잡히면 안됨.
-* 이 로직으로 해도 붙잡히면, -1 반환.
-*
-* 1 2 2
-* 2 3 1
-*
-*/
-

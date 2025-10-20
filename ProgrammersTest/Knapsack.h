@@ -31,36 +31,27 @@ int solution(vector<vector<int>> _InItems, const int _InCap)
 		{
 			if (0 == _InIdx)
 			{
-				int MaxVal = 0;
-				for (const auto& Item : _InItems)
-				{
-					if (Item[1] > _InWeight) continue;
-					MaxVal = max(MaxVal, Item[0]);
-				}
-
-				return MaxVal;
+				if (_InItems[0][1] <= _InWeight)
+					return _InItems[0][0];
+				else
+					return 0;
 			}
-			
-			if (_InWeight < 0)
+
+			int WhenItemExcluded = GetMaxValue(_InIdx - 1, _InWeight);
+			if (_InItems[_InIdx][1] <= _InWeight)
 			{
-				return 0;
+				int WhenItemIncluded = _InItems[_InIdx][0] + GetMaxValue(_InIdx - 1, _InWeight - _InItems[_InIdx][1]);
+				DP[_InIdx][_InWeight] = max(WhenItemExcluded, WhenItemIncluded);
 			}
-
-			DP[_InIdx][_InWeight] = 
-				max(GetMaxValue(_InIdx - 1, _InWeight), _InItems[_InIdx][0] + GetMaxValue(_InIdx - 1, _InWeight - _InItems[_InIdx][1]));
+			else
+			{
+				DP[_InIdx][_InWeight] = WhenItemExcluded;
+			}
 
 			return DP[_InIdx][_InWeight];
 		};
 
 	DP[_InItems.size() - 1][_InCap] = GetMaxValue(_InItems.size() - 1, _InCap);
 
-	for (int i = 0; i < DP.size(); ++i)
-	{
-		for (int j = 0; j < DP[0].size(); ++j)
-			cout << DP[i][j] << ' ';
-
-		cout << ' ' << endl;
-	}
-
-	return -1;
+	return DP[_InItems.size() - 1][_InCap];
 }
