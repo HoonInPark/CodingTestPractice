@@ -38,5 +38,4 @@ int main()
 	};
 	
 	int Res = solution(test, 6);
-	cout << Res << endl;
 }
