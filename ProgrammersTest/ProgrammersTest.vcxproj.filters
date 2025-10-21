@@ -89,7 +89,7 @@
     <ClInclude Include="RecoverMathod.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BiggestTriangle.h">
+    <ClInclude Include="BiggestTriangleSet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

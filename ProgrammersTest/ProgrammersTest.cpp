@@ -24,7 +24,7 @@
 //#include "RecoverMathod.h"
 //#include "Knapsack.h"
 //#include "PerfectCrime.h"
-#include "BiggestTriangle.h"
+#include "BiggestTriangleSet.h"
 
 int main()
 {

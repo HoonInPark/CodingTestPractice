@@ -11,6 +11,12 @@ using namespace std;
 
 int solution(vector<vector<int>> grid)
 {
-    int answer = 0;
-    return answer;
+    const int m = grid[0].size();
+
+    const vector<int> DirsOfSlash = { 1, -m };
+    const vector<int> DirsOfSlashReversed = { -1, m };
+
+
+
+    return -1;
 }
