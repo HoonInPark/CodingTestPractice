@@ -130,6 +130,7 @@
     <ClCompile Include="ProgrammersTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BiggestTriangle.h" />
     <ClInclude Include="DiskController.h" />
     <ClInclude Include="ElectricalGridDivide.h" />
     <ClInclude Include="EnglishWordChain.h" />

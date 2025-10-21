@@ -17,22 +17,15 @@
 //#include "PullOutPackage.h"
 //#include "OddEvenTree.h"
 //#include "ServerIncrementCount.h"
-#include "PerfectCrime.h"
 //#include "SealedSpell.h"
 //#include "ForkliftAndCrane.h"
 //#include "FlexibleWork.h"
 //#include "VideoPlayer.h"
 //#include "RecoverMathod.h"
 //#include "Knapsack.h"
+//#include "PerfectCrime.h"
+#include "BiggestTriangle.h"
 
 int main()
 {
-	vector<vector<int>> test =
-	{
-		{1, 2},
-		{2, 3},
-		{2, 1}
-	};
-
-	int Res = solution(test, 4, 4);
 }
